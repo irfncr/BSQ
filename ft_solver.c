@@ -17,6 +17,15 @@ typedef struct position
     int size;
 }bsq;
 
+int	min3(int a, int b, int c)
+{
+    if (a < b && a < c)
+        return (a);
+    else if (b < c)
+        return (b);
+    else
+        return (c);
+}
 int	min(int a, int b)
 {
     if (a < b)
@@ -32,6 +41,15 @@ int	max(int a, int b)
     else
         return (a);
 }
+int	up2(char **a, int i, int j)
+{
+    if ((i < 0) || (j < 0) || a[i][j] != '.')
+        return (0);
+    else
+    {
+        return (min3(up2(a, i - 1, j), up2(a, i, j - 1), up2(a, i - 1, j - 1)) + 1);
+    }
+}
 
 bsq	up(char **a, int size_x, int size_y)
 {
@@ -40,6 +58,7 @@ bsq	up(char **a, int size_x, int size_y)
     int temp;
     int i;
     int j;
+    int prev;
     bsq pos;
 
     i = 1;
