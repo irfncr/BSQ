@@ -16,6 +16,7 @@ typedef struct position
     int y;
     int size;
 }bsq;
+
 int	min(int a, int b)
 {
     if (a < b)
