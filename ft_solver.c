@@ -10,24 +10,62 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	min(int a, int b, int c)
+typedef struct position
 {
-    if (a < b && a < c)
+    int x;
+    int y;
+    int size;
+}bsq;
+int	min(int a, int b)
+{
+    if (a < b)
         return (a);
-    else if (b < c)
-        return (b);
     else
-        return (c);
+        return (b);
 }
 
-int	up(char **a, int i, int j)
+int	max(int a, int b)
 {
-    if ((i < 0) || (j < 0) || a[i][j] != '.')
-        return (0);
+    if (a < b)
+        return (b);
     else
+        return (a);
+}
+
+bsq	up(char **a, int size_x, int size_y)
+{
+    char *dp;
+    int maxv;
+    int temp;
+    int i;
+    int j;
+    bsq pos;
+
+    i = 1;
+    j = 1;
+    while (i < size_x)
     {
-        return (min(up(a, i - 1, j), up(a, i, j - 1), up(a, i - 1, j - 1)) + 1);
+        while (j < size_y)
+        {
+            temp = dp[j];
+            if (a[i-1][j-1] == '.')
+            {
+                dp[j] = max(min(dp[j - 1], prev),dp[j]) + 1;
+                if(dp[j] > maxv) {
+                    maxv = dp[j];
+                    bsq.size = maxv;
+                    bsq.x = i;
+                    bsq.y = j;
+                }
+            } else{
+                dp[j] = 0;
+            }
+            prev = temp;
+            j++;
+        }
+        i++;
     }
+    return pos;
 }
 
 int	ft_solver(char **matrix, int size_x, int size_y)
@@ -35,6 +73,7 @@ int	ft_solver(char **matrix, int size_x, int size_y)
     char		**dup;
     short		i;
     int			j;
+
 
     i = size_x - 1;
     dup = matrix;
