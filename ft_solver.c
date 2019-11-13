@@ -41,13 +41,13 @@ int	max(int a, int b)
     else
         return (a);
 }
-int	up2(char **a, int i, int j)
+int	up2(char *a, int i, int j, int size_x)
 {
-    if ((i < 0) || (j < 0) || a[i][j] != '.')
+    if ((i < 0) || (j < 0) || a[ j * (size_x - 1) + i] != '.')
         return (0);
     else
     {
-        return (min3(up2(a, i - 1, j), up2(a, i, j - 1), up2(a, i - 1, j - 1)) + 1);
+        return (min3(up2(a, i - 1, j, size_x), up2(a, i, j - 1, size_x), up2(a, i - 1, j - 1, size_x)) + 1);
     }
 }
 
@@ -103,6 +103,28 @@ int	ft_solver(char **matrix, int size_x, int size_y)
         while (j > -1)
         {
             dup[i][j] = up(matrix, i, j);
+            j--;
+        }
+        i--;
+    }
+    return (0);
+}
+
+int	ft_solver_1(char *matrix, int size_x, int size_y)
+    {
+    char		*dup;
+    int 		i;
+    int			j;
+
+    *dup = malloc(sizeof(char) * (size_x * size_y + 1));
+    i = size_x - 1;
+    dup = matrix;
+    while (i > -1)
+    {
+        j = size_y - 1;
+        while (j > -1)
+        {
+            dup[j * (size_x - 1) + i] = up2(matrix, i, j, size_x);
             j--;
         }
         i--;
